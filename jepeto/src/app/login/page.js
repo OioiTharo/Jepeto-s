@@ -8,55 +8,49 @@ import { useState } from 'react'
 const Container = styled.div`
     display: grid;
     grid-template-columns: 1fr 1fr;
-    min-height: 100vh;
-
+    min-height: 85vh;
+    font-family: 'Roboto', sans-serif;
     @media (max-width: 768px) {
         grid-template-columns: 1fr;
     }
 `
 
 const LeftSection = styled.section`
-    background-color: blue;
-    padding: 3rem;
+    background-color: #1E88E5;
+    padding: 0rem 4rem;
     color: white;
     display: flex;
     flex-direction: column;
     justify-content: center;
     gap: 2rem;
 
-    @media (max-width: 768px) {
+    @media (max-width: 50%) {
         display: none;
     }
 `
+const Paragraph = styled.p`
+    width: 100%;
+    font-weight: 600;
+    margin: 0px 15px;
+    text-align: center;
+`;
 
 const Feature = styled.div`
     display: flex;
     align-items: center;
     gap: 1rem;
-    background-color: rgba(255, 255, 255, 0.1);
     padding: 2rem;
-    border-radius: 1rem;
 `
 
 const FeatureIcon = styled.div`
-    width: 48px;
-    height: 48px;
-    background-color: white;
-    border-radius: 50%;
+    width: 20%;
+    height: 100px;
     display: flex;
     align-items: center;
     justify-content: center;
-`
-
-const FeatureText = styled.div`
-    h3 {
-        font-size: 1.25rem;
-        margin-bottom: 0.5rem;
-    }
-
-    p {
-        opacity: 0.9;
-        font-size: 0.875rem;
+    margin: 0px 15px;
+    img{
+        max-width: 700%;
     }
 `
 
@@ -69,16 +63,6 @@ const RightSection = styled.section`
     background-color: white;
 `
 
-const Logo = styled.div`
-    margin-bottom: 2rem;
-    text-align: center;
-
-    img {
-        width: 120px;
-        height: auto;
-    }
-`
-
 const LoginForm = styled.form`
     width: 100%;
     max-width: 400px;
@@ -88,7 +72,7 @@ const GoogleButton = styled.button`
     width: 100%;
     padding: 0.875rem;
     border: 1px solid #eaeaea;
-    border-radius: 8px;
+    border-radius: 50px;
     background-color: white;
     display: flex;
     align-items: center;
@@ -137,7 +121,7 @@ const Input = styled.input`
     width: 100%;
     padding: 0.875rem;
     border: 1px solid #eaeaea;
-    border-radius: 8px;
+    border-radius: 50px;
     font-size: 1rem;
 
     &:focus {
@@ -149,6 +133,8 @@ const Input = styled.input`
 const ForgotPassword = styled.div`
     text-align: right;
     margin-bottom: 1rem;
+    display: flex; 
+    justify-content: flex-start; 
 
     a {
         color: black;
@@ -156,7 +142,7 @@ const ForgotPassword = styled.div`
         font-size: 0.875rem;
 
         &:hover {
-        text-decoration: underline;
+            color: #1E88E5;
         }
     }
 `
@@ -164,10 +150,10 @@ const ForgotPassword = styled.div`
 const SubmitButton = styled.button`
     width: 100%;
     padding: 0.875rem;
-    background-color: blue;
+    background-color: #1E88E5;
     color: white;
     border: none;
-    border-radius: 8px;
+    border-radius: 50px;
     font-size: 1rem;
     font-weight: 600;
     cursor: pointer;
@@ -177,6 +163,11 @@ const SubmitButton = styled.button`
         opacity: 0.9;
     }
 `
+const Decor = styled.div`
+    vertical-align: top;
+    text-align: center;
+    margin-bottom: 10%;
+`
 
 export default function Login() {
   const [email, setEmail] = useState('')
@@ -184,7 +175,7 @@ export default function Login() {
 
   const handleSubmit = (e) => {
     e.preventDefault()
-    // Implementar lógica de login aqui
+    
     console.log('Login attempt:', { email, password })
   }
 
@@ -198,43 +189,34 @@ export default function Login() {
         <LeftSection>
           <Feature>
             <FeatureIcon>
-              <img src="/icons/profile.svg" alt="" width="24" height="24" />
+              <img src="/image1login.png"/>
             </FeatureIcon>
-            <FeatureText>
-              <h3>Encontre um profissional online</h3>
-              <p>Com um simples toque</p>
-            </FeatureText>
+            <Paragraph>Encontre um profissional online,com um simples toque</Paragraph>
+          </Feature>
+
+          <Feature>
+            <Paragraph>Customize a sua experiência</Paragraph>
+            <FeatureIcon>
+              <img src="/image2login.png"/>
+            </FeatureIcon>
           </Feature>
 
           <Feature>
             <FeatureIcon>
-              <img src="/icons/customize.svg" alt="" width="24" height="24" />
+              <img src="/image3login.png" />
             </FeatureIcon>
-            <FeatureText>
-              <h3>Customize a sua experiência</h3>
-              <p>De acordo com suas necessidades</p>
-            </FeatureText>
-          </Feature>
-
-          <Feature>
-            <FeatureIcon>
-              <img src="/icons/home.svg" alt="" width="24" height="24" />
-            </FeatureIcon>
-            <FeatureText>
-              <h3>Em qualquer lugar</h3>
-              <p>Estando no conforto da sua casa</p>
-            </FeatureText>
+            <Paragraph>Em qualquer lugar estando no conforto da sua casa</Paragraph>
           </Feature>
         </LeftSection>
 
         <RightSection>
-          <Logo>
-            <img src="/logo.svg" alt="MeuServiço" />
-          </Logo>
-
-          <LoginForm onSubmit={handleSubmit}>
+            <Decor>
+            <img src="/loginBolas.png" width="100%"/>
+            <img src="/logo.png" height="100"/>
+            </Decor>
+            <LoginForm onSubmit={handleSubmit}>
             <GoogleButton type="button">
-              <img src="/icons/google.svg" alt="" width="20" height="20" />
+              <img src="https://cdn4.iconfinder.com/data/icons/logos-brands-7/512/google_logo-google_icongoogle-512.png" alt="" width="20" height="20" />
               Login com o Google
             </GoogleButton>
 
@@ -265,10 +247,9 @@ export default function Login() {
             </FormGroup>
 
             <ForgotPassword>
-              <Link href="/forgot-password">
-                <a>Esqueceu sua senha?</a>
-              </Link>
+                <Link href="/forgot-password">Esqueceu sua senha?</Link> 
             </ForgotPassword>
+
 
             <SubmitButton type="submit">
               Login

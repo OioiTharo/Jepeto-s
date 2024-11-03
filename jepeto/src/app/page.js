@@ -1,7 +1,6 @@
 "use client";
 import styled from 'styled-components'
 import Head from 'next/head'
-import Button from '../../components/button';
 
 const HeroSection = styled.section`
   display: flex;
@@ -173,7 +172,7 @@ const Consultor = styled.a`
   cursor: pointer;
   text-decoration: none;
   margin-left: 10px; 
-  
+
   &:hover {
     background-color: #212121;
     color: white;
