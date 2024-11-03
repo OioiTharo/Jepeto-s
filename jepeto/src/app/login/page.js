@@ -8,7 +8,7 @@ import { useState } from 'react'
 const Container = styled.div`
     display: grid;
     grid-template-columns: 1fr 1fr;
-    min-height: 85vh;
+    min-height: 60vh;
     font-family: 'Roboto', sans-serif;
     @media (max-width: 768px) {
         grid-template-columns: 1fr;
@@ -17,40 +17,34 @@ const Container = styled.div`
 
 const LeftSection = styled.section`
     background-color: #1E88E5;
-    padding: 0rem 4rem;
     color: white;
     display: flex;
     flex-direction: column;
     justify-content: center;
-    gap: 2rem;
+    text-align: center;
 
     @media (max-width: 50%) {
         display: none;
     }
 `
 const Paragraph = styled.p`
-    width: 100%;
     font-weight: 600;
-    margin: 0px 15px;
+    margin: 0 2rem;
     text-align: center;
 `;
 
 const Feature = styled.div`
     display: flex;
     align-items: center;
-    gap: 1rem;
-    padding: 2rem;
+    text-align: center;
+    margin: 0 2rem;
 `
 
 const FeatureIcon = styled.div`
-    width: 20%;
-    height: 100px;
-    display: flex;
-    align-items: center;
-    justify-content: center;
     margin: 0px 15px;
     img{
-        max-width: 700%;
+        width: 100%;
+        max-height: 250px;
     }
 `
 
@@ -158,12 +152,14 @@ const SubmitButton = styled.button`
     font-weight: 600;
     cursor: pointer;
     transition: opacity 0.2s;
+    margin-bottom: 1rem;
 
     &:hover {
         opacity: 0.9;
     }
 `
 const Decor = styled.div`
+    height: 30%;
     vertical-align: top;
     text-align: center;
     margin-bottom: 10%;
@@ -211,8 +207,8 @@ export default function Login() {
 
         <RightSection>
             <Decor>
-            <img src="/loginBolas.png" width="100%"/>
-            <img src="/logo.png" height="100"/>
+            <img src="/loginBolas.png" width="80%"/>
+            <img src="/logo.png" height="50%"/>
             </Decor>
             <LoginForm onSubmit={handleSubmit}>
             <GoogleButton type="button">
