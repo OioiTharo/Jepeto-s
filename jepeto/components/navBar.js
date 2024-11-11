@@ -79,12 +79,6 @@ const NavBarComponent = () => {
                 <Link href="/" passHref>
                     <NavLink>Pagina Inicial</NavLink>
                 </Link>
-                <Link href="/prestador" passHref>
-                    <NavLink>Seja um prestador</NavLink>
-                </Link>
-                <Link href="/empresas" passHref>
-                    <NavLink>Para Empresas</NavLink>
-                </Link>
                 <Link href="/login" passHref>
                     <NavLink>Login</NavLink>
                 </Link>
@@ -103,12 +97,6 @@ const NavBarComponent = () => {
             <DropdownMenu visible={isDropdownVisible}>
                 <Link href="/" passHref>
                     <DropdownLink>Pagina Inicial</DropdownLink>
-                </Link>
-                <Link href="/prestador" passHref>
-                    <DropdownLink>Seja um prestador</DropdownLink>
-                </Link>
-                <Link href="/empresas" passHref>
-                    <DropdownLink>Para Empresas</DropdownLink>
                 </Link>
                 <Link href="/login" passHref>
                     <DropdownLink>Login</DropdownLink>

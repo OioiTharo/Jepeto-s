@@ -1,218 +1,212 @@
 "use client";
-
-import styled from 'styled-components'
-import Head from 'next/head'
-import Link from 'next/link'
-import { useState } from 'react'
+import styled from 'styled-components';
+import { useState } from 'react';
+import Link from 'next/link';
 
 const Container = styled.div`
-    display: grid;
-    grid-template-columns: 1fr 1fr;
-    min-height: 60vh;
-    font-family: 'Roboto', sans-serif;
-    @media (max-width: 768px) {
-        grid-template-columns: 1fr;
-    }
-`
-
-const LeftSection = styled.section`
-    background-color: #1E88E5;
-    color: white;
-    display: flex;
-    flex-direction: column;
-    justify-content: center;
-    text-align: center;
-
-    @media (max-width: 50%) {
-        display: none;
-    }
-`
-const Paragraph = styled.p`
-    font-weight: 600;
-    margin: 0 2rem;
-    text-align: center;
+  font-family: 'Roboto', sans-serif;
+  display: flex;
+  flex-direction: column;
+  min-height: 60vh;
+  background-color: #f5f5f5;
 `;
 
-const Feature = styled.div`
-    display: flex;
-    align-items: center;
-    text-align: center;
-    margin: 0 2rem;
-`
+const LoginCard = styled.div`
+  background: white;
+  border-radius: 20px;
+  display: flex;
+  gap: 0; 
+  max-width: 1200px;
+  width: 90%;
+  margin: 2rem auto;
+  overflow: hidden; 
+  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+`;
 
-const FeatureIcon = styled.div`
-    margin: 0px 15px;
-    img{
-        width: 100%;
-        max-height: 250px;
-    }
-`
+const FormContainer = styled.div`
+  flex: 1;
+  padding: 2rem 3rem;
+`;
 
-const RightSection = styled.section`
-    display: flex;
-    flex-direction: column;
-    justify-content: center;
-    align-items: center;
-    padding: 2rem;
-    background-color: white;
-`
 
-const LoginForm = styled.form`
-    width: 100%;
-    max-width: 400px;
-`
+const ImageContainer = styled.div`
+  flex: 1;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background-color: #1E88E5; 
+  min-height: 100%;
 
-const GoogleButton = styled.button`
-    width: 100%;
-    padding: 0.875rem;
-    border: 1px solid #eaeaea;
-    border-radius: 50px;
-    background-color: white;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    gap: 0.5rem;
-    margin-bottom: 1.5rem;
-    cursor: pointer;
-    transition: background-color 0.2s;
-
-    &:hover {
-        background-color: #f5f5f5;
-    }
-`
-
-const Divider = styled.div`
-    display: flex;
-    align-items: center;
-    text-align: center;
-    margin: 1.5rem 0;
-    color: #666;
-
-    &::before,
-    &::after {
-        content: '';
-        flex: 1;
-        border-bottom: 1px solid #eaeaea;
-    }
-
-    span {
-        padding: 0 10px;
-    }
-`
-
-const FormGroup = styled.div`
-    margin-bottom: 1rem;
-`
-
-const Label = styled.label`
-    display: block;
-    margin-bottom: 0.5rem;
-    color: #333;
-    font-size: 0.875rem;
-`
-
-const Input = styled.input`
-    width: 100%;
-    padding: 0.875rem;
-    border: 1px solid #eaeaea;
-    border-radius: 50px;
-    font-size: 1rem;
-
-    &:focus {
-        outline: none;
-        border-color: black;
-    }
-`
-
-const ForgotPassword = styled.div`
-    text-align: right;
-    margin-bottom: 1rem;
-    display: flex; 
-    justify-content: flex-start; 
-
-    a {
-        color: black;
-        text-decoration: none;
-        font-size: 0.875rem;
-
-        &:hover {
-            color: #1E88E5;
-        }
-    }
-`
-
-const SubmitButton = styled.button`
-    width: 100%;
-    padding: 0.875rem;
-    background-color: #1E88E5;
-    color: white;
-    border: none;
-    border-radius: 50px;
-    font-size: 1rem;
-    font-weight: 600;
-    cursor: pointer;
-    transition: opacity 0.2s;
-    margin-bottom: 1rem;
-
-    &:hover {
-        opacity: 0.9;
-    }
-`
-const Decor = styled.div`
-    height: 30%;
-    vertical-align: top;
-    text-align: center;
-    margin-bottom: 10%;
-`
-
-export default function Login() {
-  const [email, setEmail] = useState('')
-  const [password, setPassword] = useState('')
-
-  const handleSubmit = (e) => {
-    e.preventDefault()
-    
-    console.log('Login attempt:', { email, password })
+  img {
+    width: 80%;
+    height: 80%;
+    object-fit: cover; 
   }
 
+  @media (max-width: 900px) {
+    display: none;
+  }
+`;
+
+const LoginForm = styled.form`
+  width: 100%;
+  max-width: 400px;
+  margin: 0 auto; 
+`;
+
+const Logo = styled.div`
+  margin-bottom: 2rem;
+  text-align: center;
+  img {
+    height: 80px;
+  }
+`;
+
+const GoogleButton = styled.button`
+  width: 100%;
+  padding: 0.8rem;
+  border: 1px solid #ddd;
+  border-radius: 25px;
+  background-color: white;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 0.5rem;
+  cursor: pointer;
+  margin-bottom: 1.5rem;
+  transition: background-color 0.2s;
+
+  &:hover {
+    background-color: #f5f5f5;
+  }
+`;
+
+const Divider = styled.div`
+  display: flex;
+  align-items: center;
+  text-align: center;
+  margin: 1rem 0;
+  color: #666;
+
+  &::before,
+  &::after {
+    content: '';
+    flex: 1;
+    border-bottom: 1px solid #ddd;
+  }
+
+  span {
+    padding: 0 10px;
+  }
+`;
+
+const FormGroup = styled.div`
+  margin-bottom: 1rem;
+`;
+
+const Label = styled.label`
+  display: block;
+  margin-bottom: 0.5rem;
+  color: #1E88E5;
+  font-size: 0.9rem;
+`;
+
+const Input = styled.input`
+  width: 100%;
+  padding: 0.8rem;
+  border: 1px solid #ddd;
+  border-radius: 25px;
+  font-size: 0.9rem;
+
+  &:focus {
+    outline: none;
+    border-color: #1E88E5;
+  }
+`;
+
+const ForgotPassword = styled.div`
+  text-align: right;
+  margin-top: -0.5rem;
+  margin-bottom: 1rem;
+  
+  a {
+    color: #1E88E5;
+    text-decoration: none;
+    font-size: 0.8rem;
+    
+    &:hover {
+      text-decoration: underline;
+    }
+  }
+`;
+
+const LoginButton = styled.button`
+  width: 100%;
+  padding: 0.8rem;
+  border: none;
+  border-radius: 25px;
+  background-color: #1E88E5;
+  color: white;
+  font-size: 1rem;
+  cursor: pointer;
+  transition: opacity 0.2s;
+
+  &:hover {
+    opacity: 0.9;
+  }
+`;
+
+const RegisterLink = styled.div`
+  text-align: center;
+  margin-top: 1rem;
+  font-size: 0.9rem;
+  
+  a {
+    color: #1E88E5;
+    text-decoration: none;
+    margin-left: 0.5rem;
+    
+    &:hover {
+      text-decoration: underline;
+    }
+  }
+`;
+
+export default function LoginPage() {
+  const [formData, setFormData] = useState({
+    email: '',
+    password: ''
+  });
+
+  const handleChange = (e) => {
+    const { name, value } = e.target;
+    setFormData(prev => ({
+      ...prev,
+      [name]: value
+    }));
+  };
+
+  const handleSubmit = (e) => {
+    e.preventDefault();
+    console.log(formData);
+  };
+
+  const handleGoogleLogin = () => {
+    // Implementar login com Google
+    console.log('Google login clicked');
+  };
+
   return (
-    <>
-      <Head>
-        <title>Login - MeuServiço</title>
-      </Head>
+    <Container>
+      <LoginCard>
+        <FormContainer>
+          <LoginForm onSubmit={handleSubmit}>
+            <Logo>
+              <img src="/logo.png" alt="MeuServiço" />
+            </Logo>
 
-      <Container>
-        <LeftSection>
-          <Feature>
-            <FeatureIcon>
-              <img src="/image1login.png"/>
-            </FeatureIcon>
-            <Paragraph>Encontre um profissional online,com um simples toque</Paragraph>
-          </Feature>
-
-          <Feature>
-            <Paragraph>Customize a sua experiência</Paragraph>
-            <FeatureIcon>
-              <img src="/image2login.png"/>
-            </FeatureIcon>
-          </Feature>
-
-          <Feature>
-            <FeatureIcon>
-              <img src="/image3login.png" />
-            </FeatureIcon>
-            <Paragraph>Em qualquer lugar estando no conforto da sua casa</Paragraph>
-          </Feature>
-        </LeftSection>
-
-        <RightSection>
-            <Decor>
-            <img src="/loginBolas.png" width="80%"/>
-            <img src="/logo.png" height="50%"/>
-            </Decor>
-            <LoginForm onSubmit={handleSubmit}>
-            <GoogleButton type="button">
-              <img src="https://cdn4.iconfinder.com/data/icons/logos-brands-7/512/google_logo-google_icongoogle-512.png" alt="" width="20" height="20" />
+            <GoogleButton onClick={handleGoogleLogin} type="button">
+              <img src="/googleicon.png" alt="Google" style={{ width: '20px' }} />
               Login com o Google
             </GoogleButton>
 
@@ -221,38 +215,44 @@ export default function Login() {
             </Divider>
 
             <FormGroup>
-              <Label htmlFor="email">Email*</Label>
+              <Label>Email*</Label>
               <Input
-                id="email"
                 type="email"
-                value={email}
-                onChange={(e) => setEmail(e.target.value)}
+                name="email"
+                value={formData.email}
+                onChange={handleChange}
                 required
               />
             </FormGroup>
 
             <FormGroup>
-              <Label htmlFor="password">Senha*</Label>
+              <Label>Senha*</Label>
               <Input
-                id="password"
                 type="password"
-                value={password}
-                onChange={(e) => setPassword(e.target.value)}
+                name="password"
+                value={formData.password}
+                onChange={handleChange}
                 required
               />
             </FormGroup>
 
             <ForgotPassword>
-                <Link href="/forgot-password">Esqueceu sua senha?</Link> 
+              <Link href="/recuperar-senha">Esqueceu sua senha?</Link>
             </ForgotPassword>
 
-
-            <SubmitButton type="submit">
+            <LoginButton type="submit">
               Login
-            </SubmitButton>
+            </LoginButton>
+
+            <RegisterLink>
+              Não tem uma conta? <Link href="/cadastro">Registre-se</Link>
+            </RegisterLink>
           </LoginForm>
-        </RightSection>
-      </Container>
-    </>
-  )
+        </FormContainer>
+        <ImageContainer>
+          <img src="/imagelogin.png" alt="Ilustração" style={{ objectPosition: 'center' }} />
+        </ImageContainer>
+      </LoginCard>
+    </Container>
+  );
 }

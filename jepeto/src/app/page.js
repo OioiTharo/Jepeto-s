@@ -77,7 +77,7 @@ const FeatureDescription = styled.p`
 `
 
 
-const VisibititySection  = styled.section`
+const VisibititySection = styled.section`
   display: flex;
   flex-direction: row;
   align-items: center;
@@ -267,11 +267,11 @@ export default function Home() {
             <Subtitle>Encontre profissionais qualificados e confiáveis em diversos segmentos, prontos para realizar o seu projeto com excelência</Subtitle>
             <Bazul href=''>Conecte-se com quem faz a diferença</Bazul>
           </TextContainer>
-          <ImageContainer><img src="/image1.png"/></ImageContainer>
+          <ImageContainer><img src="/image1.png" /></ImageContainer>
         </HeroSection>
 
         <FeatureSection>
-          <FeatureImage><img src="/image2.png"/></FeatureImage>
+          <FeatureImage><img src="/image2.png" /></FeatureImage>
           <TextContainer>
             <FeatureTitle>Rapidez para encontrar serviços</FeatureTitle>
             <FeatureDescription>
@@ -298,11 +298,11 @@ export default function Home() {
               <VisibitityDuv href="">Tire suas duvidas aqui</VisibitityDuv>
             </Paragraph>
           </TextContainer>
-          <VisibitityImage><img src="/image3.png"/></VisibitityImage>
+          <VisibitityImage><img src="/image3.png" /></VisibitityImage>
         </VisibititySection>
 
         <FeatureSection>
-          <FeatureImage><img src="/image4.png"/></FeatureImage>
+          <FeatureImage><img src="/image4.png" /></FeatureImage>
           <TextContainer>
             <FeatureTitle>Também funciona para a sua empresa</FeatureTitle>
             <FeatureDescription>Encontre profissionais qualificados e confiáveis em diversos segmentos, prontos para realizar o seu projeto com excelência.</FeatureDescription>
@@ -336,9 +336,9 @@ export default function Home() {
             </StepCard>
           </StepsList>
         </StepsSection>
-        
+
         <FimSection>
-          <img src="/image5.png" height="250px"/>
+          <img src="/image5.png" height="250px" />
           <TextoFim>Conecte-se com profissionais confiáveis e inicie seus projetos em minutos!</TextoFim>
           <Title>Pronto para iniciar?</Title>
           <Bazul href=''>Comece a melhor jornada da sua vida agora</Bazul>
