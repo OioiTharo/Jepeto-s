@@ -187,6 +187,21 @@ const SliderInput = styled.input`
     }
 `;
 
+const Title = styled.h1`
+  font-size: 2rem;
+  color: #1E88E5;
+  margin-bottom: 2rem;
+  text-align: center;
+  font-weight: 600;
+`;
+
+const SubTitle = styled.p`
+  font-size: 1rem;
+  color: #666;
+  text-align: center;
+  margin-bottom: 2rem;
+`;
+
 const SliderValue = styled.div`
     text-align: right;
     font-size: 0.8rem;
@@ -547,6 +562,9 @@ export default function QualificacaoPage() {
     return (
         <Container>
             <QualificacaoCard>
+                <Title>Perfil profissional</Title>
+                <SubTitle>Descreva sobre os servicos que você realiza</SubTitle>
+
                 {errors.submit && (
                     <ErrorMessage style={{ marginBottom: '1rem' }}>{errors.submit}</ErrorMessage>
                 )}

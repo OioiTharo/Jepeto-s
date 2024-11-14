@@ -265,7 +265,7 @@ export default function Home() {
           <TextContainer>
             <Title>A melhor plataforma de serviços do Brasil</Title>
             <Subtitle>Encontre profissionais qualificados e confiáveis em diversos segmentos, prontos para realizar o seu projeto com excelência</Subtitle>
-            <Bazul href=''>Conecte-se com quem faz a diferença</Bazul>
+            <Bazul href="/cadastro/cliente" passHref>Conecte-se com quem faz a diferença</Bazul>
           </TextContainer>
           <ImageContainer><img src="/image1.png" /></ImageContainer>
         </HeroSection>
@@ -286,7 +286,7 @@ export default function Home() {
               <span class="material-icons">check</span>
               Contrate com um clique e com Segurança
             </FeatureDescription>
-            <Bazul href=''>Descubra agora</Bazul>
+            <Bazul href="/cadastro/cliente" passHref>Descubra agora</Bazul>
           </TextContainer>
         </FeatureSection>
 
@@ -294,7 +294,7 @@ export default function Home() {
           <TextContainer>
             <VisibitityTitle>Ganhe visibilidade e conquiste clientes!</VisibitityTitle>
             <Paragraph>
-              <VisibitityA href="">Comece agora</VisibitityA>
+              <VisibitityA href="/cadastro/profissional" passHref>Comece agora</VisibitityA>
               <VisibitityDuv href="">Tire suas duvidas aqui</VisibitityDuv>
             </Paragraph>
           </TextContainer>

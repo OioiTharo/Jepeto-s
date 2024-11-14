@@ -192,7 +192,6 @@ export default function LoginPage() {
   };
 
   const handleGoogleLogin = () => {
-    // Implementar login com Google
     console.log('Google login clicked');
   };
 
@@ -211,11 +210,11 @@ export default function LoginPage() {
             </GoogleButton>
 
             <Divider>
-              <span>or</span>
+              <span>ou</span>
             </Divider>
 
             <FormGroup>
-              <Label>Email*</Label>
+              <Label>Email</Label>
               <Input
                 type="email"
                 name="email"
@@ -226,7 +225,7 @@ export default function LoginPage() {
             </FormGroup>
 
             <FormGroup>
-              <Label>Senha*</Label>
+              <Label>Senha</Label>
               <Input
                 type="password"
                 name="password"
@@ -235,7 +234,6 @@ export default function LoginPage() {
                 required
               />
             </FormGroup>
-
             <ForgotPassword>
               <Link href="/recuperar-senha">Esqueceu sua senha?</Link>
             </ForgotPassword>

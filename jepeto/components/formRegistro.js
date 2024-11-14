@@ -108,6 +108,21 @@ const ErrorMessage = styled.span`
   display: block;
 `;
 
+const Title = styled.h1`
+  font-size: 2rem;
+  color: #1E88E5;
+  margin-bottom: 2rem;
+  text-align: center;
+  font-weight: 600;
+`;
+
+const SubTitle = styled.p`
+  font-size: 1rem;
+  color: #666;
+  text-align: center;
+  margin-bottom: 2rem;
+`;
+
 export default function Form({ userType }) {
   const router = useRouter();
   const [formData, setFormData] = useState({
@@ -314,10 +329,27 @@ export default function Form({ userType }) {
     console.log(formData);
   };
 
+  const getTitleText = () => {
+    if (userType === 'cliente') {
+      return {
+        title: 'Cadastro de Cliente',
+        subtitle: 'Encontre os melhores profissionais para seus serviços'
+      };
+    }
+    return {
+      title: 'Cadastro de Profissional',
+      subtitle: 'Comece a oferecer seus serviços hoje mesmo'
+    };
+  };
+
   return (
     <Container>
       <FormCard>
         <FormContainer onSubmit={handleSubmit}>
+          <Title>{getTitleText().title}</Title>
+          <SubTitle>{getTitleText().subtitle}</SubTitle>
+          
+          
           <FormGrid>
             <FormGroup>
               <Label>Nome</Label>

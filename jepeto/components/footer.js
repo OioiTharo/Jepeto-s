@@ -1,4 +1,3 @@
-// components/Footer/index.js
 import styled from 'styled-components'
 import Link from 'next/link'
 
@@ -76,12 +75,6 @@ const Footer = () => {
         <Navigation>
           <Link href="/" passHref>
             <NavLink>Página Inicial</NavLink>
-          </Link>
-          <Link href="/seja-prestador" passHref>
-            <NavLink>Seja um prestador</NavLink>
-          </Link>
-          <Link href="/para-empresas" passHref>
-            <NavLink>Para Empresas</NavLink>
           </Link>
           <Link href="/contato" passHref>
             <NavLink>Contato</NavLink>
