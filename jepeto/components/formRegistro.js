@@ -86,7 +86,7 @@ const Button = styled.button`
   padding: 1rem 2rem;
   font-size: 1rem;
   cursor: pointer;
-  width: 100%;
+  width: 97%;
   margin-top: 1rem;
   transition: background-color 0.2s;
 

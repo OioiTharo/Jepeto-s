@@ -295,12 +295,12 @@ export default function Home() {
             <VisibitityTitle>Ganhe visibilidade e conquiste clientes!</VisibitityTitle>
             <Paragraph>
               <VisibitityA href="/cadastro/profissional" passHref>Comece agora</VisibitityA>
-              <VisibitityDuv href="">Tire suas duvidas aqui</VisibitityDuv>
+              {/*<VisibitityDuv href="">Tire suas duvidas aqui</VisibitityDuv>*/}
             </Paragraph>
           </TextContainer>
           <VisibitityImage><img src="/image3.png" /></VisibitityImage>
         </VisibititySection>
-
+        
         <FeatureSection>
           <FeatureImage><img src="/image4.png" /></FeatureImage>
           <TextContainer>
@@ -308,7 +308,7 @@ export default function Home() {
             <FeatureDescription>Encontre profissionais qualificados e confiáveis em diversos segmentos, prontos para realizar o seu projeto com excelência.</FeatureDescription>
             <Paragraph>
               <Bazul href="">Comece agora</Bazul>
-              <Consultor href="">Fale com um consultor</Consultor>
+              {/*<Consultor href="">Fale com um consultor</Consultor>*/}
             </Paragraph>
           </TextContainer>
         </FeatureSection>
@@ -341,7 +341,7 @@ export default function Home() {
           <img src="/image5.png" height="250px" />
           <TextoFim>Conecte-se com profissionais confiáveis e inicie seus projetos em minutos!</TextoFim>
           <Title>Pronto para iniciar?</Title>
-          <Bazul href=''>Comece a melhor jornada da sua vida agora</Bazul>
+          <Bazul href="/cadastro/cliente" passHref>Comece a melhor jornada da sua vida agora</Bazul>
         </FimSection>
 
 
