@@ -244,16 +244,6 @@ const ServiceProviderProfile = () => {
                         <span>Verificado</span>
                     </InfoItem>
 
-                    <ButtonsContainer>
-                        <ActionButton primary>
-                            Solicitar Serviço
-                        </ActionButton>
-                        <ActionButton>
-                            <span className="material-icons">edit</span>
-                            Editar Perfil
-                        </ActionButton>
-                    </ButtonsContainer>
-
                     <Section>
                         <SectionTitle>Sobre</SectionTitle>
                         <SectionContent>
