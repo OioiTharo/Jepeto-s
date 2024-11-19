@@ -1,13 +1,16 @@
 "use client";
-import styled from 'styled-components';
-import { useState } from 'react';
-import Link from 'next/link';
+import React, { useState } from "react";
+import styled from "styled-components";
+import { useRouter } from "next/navigation";
+import Link from "next/link";
+import { useAuth } from "../context/AuthContext";
 
 const Container = styled.div`
-  font-family: 'Roboto', sans-serif;
+  font-family: "Roboto", sans-serif;
   display: flex;
   flex-direction: column;
-  min-height: 60vh;
+  min-height: 100vh;
+  justify-content: center;
   background-color: #f5f5f5;
 `;
 
@@ -15,11 +18,11 @@ const LoginCard = styled.div`
   background: white;
   border-radius: 20px;
   display: flex;
-  gap: 0; 
+  gap: 0;
   max-width: 1200px;
   width: 90%;
   margin: 2rem auto;
-  overflow: hidden; 
+  overflow: hidden;
   box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
 `;
 
@@ -28,19 +31,16 @@ const FormContainer = styled.div`
   padding: 2rem 3rem;
 `;
 
-
 const ImageContainer = styled.div`
   flex: 1;
   display: flex;
   align-items: center;
   justify-content: center;
-  background-color: #1E88E5; 
-  min-height: 100%;
+  background-color: #1e88e5;
 
   img {
     width: 80%;
-    height: 80%;
-    object-fit: cover; 
+    object-fit: contain;
   }
 
   @media (max-width: 900px) {
@@ -51,12 +51,13 @@ const ImageContainer = styled.div`
 const LoginForm = styled.form`
   width: 100%;
   max-width: 400px;
-  margin: 0 auto; 
+  margin: 0 auto;
 `;
 
 const Logo = styled.div`
   margin-bottom: 2rem;
   text-align: center;
+
   img {
     height: 80px;
   }
@@ -90,7 +91,7 @@ const Divider = styled.div`
 
   &::before,
   &::after {
-    content: '';
+    content: "";
     flex: 1;
     border-bottom: 1px solid #ddd;
   }
@@ -107,7 +108,7 @@ const FormGroup = styled.div`
 const Label = styled.label`
   display: block;
   margin-bottom: 0.5rem;
-  color: #1E88E5;
+  color: #1e88e5;
   font-size: 0.9rem;
 `;
 
@@ -120,7 +121,7 @@ const Input = styled.input`
 
   &:focus {
     outline: none;
-    border-color: #1E88E5;
+    border-color: #1e88e5;
   }
 `;
 
@@ -128,12 +129,12 @@ const ForgotPassword = styled.div`
   text-align: right;
   margin-top: -0.5rem;
   margin-bottom: 1rem;
-  
+
   a {
-    color: #1E88E5;
-    text-decoration: none;
+    color: #1e88e5;
     font-size: 0.8rem;
-    
+    text-decoration: none;
+
     &:hover {
       text-decoration: underline;
     }
@@ -145,7 +146,7 @@ const LoginButton = styled.button`
   padding: 0.8rem;
   border: none;
   border-radius: 25px;
-  background-color: #1E88E5;
+  background-color: #1e88e5;
   color: white;
   font-size: 1rem;
   cursor: pointer;
@@ -154,45 +155,76 @@ const LoginButton = styled.button`
   &:hover {
     opacity: 0.9;
   }
+
+  &:disabled {
+    background-color: #ddd;
+    cursor: not-allowed;
+  }
 `;
 
 const RegisterLink = styled.div`
   text-align: center;
   margin-top: 1rem;
-  font-size: 0.9rem;
-  
+
   a {
-    color: #1E88E5;
-    text-decoration: none;
+    color: #1e88e5;
     margin-left: 0.5rem;
-    
+    text-decoration: none;
+
     &:hover {
       text-decoration: underline;
     }
   }
 `;
 
+const ErrorMessage = styled.span`
+  color: #dc3545;
+  font-size: 0.8rem;
+  margin-top: 0.5rem;
+  display: block;
+`;
+
 export default function LoginPage() {
-  const [formData, setFormData] = useState({
-    email: '',
-    password: ''
-  });
+  const { login } = useAuth();
+  const router = useRouter();
+  const [formData, setFormData] = useState({ email: "",senha: "" });
+  const [loading, setLoading] = useState(false);
+  const [error, setError] = useState("");
 
   const handleChange = (e) => {
     const { name, value } = e.target;
-    setFormData(prev => ({
-      ...prev,
-      [name]: value
-    }));
+    setFormData((prev) => ({ ...prev, [name]: value }));
   };
 
-  const handleSubmit = (e) => {
+  const handleSubmit = async (e) => {
     e.preventDefault();
-    console.log(formData);
+    setError("");
+    setLoading(true);
+  
+    if (!formData.email || !formData.senha) {
+      setError("Preencha todos os campos.");
+      setLoading(false);
+      return;
+    }
+  
+    try {
+      console.log('Enviando dados:', { ...formData, senha: '*****' }); // Debug
+      const { user } = await login(formData);
+      console.log('Login bem-sucedido:', user); // Debug
+      console.log('Redirecionando para:', user.tipoUsuario === 'cliente' ? '/perfil/cliente' : '/perfil/profissional');
+      router.replace(user.tipoUsuario === 'cliente' ? '/perfil/cliente' : '/perfil/profissional');
+
+      
+    } catch (err) {
+      console.error('Erro completo:', err); // Debug
+      setError(err.message || "Credenciais inválidas. Verifique seu email e senha.");
+    } finally {
+      setLoading(false);
+    }
   };
 
   const handleGoogleLogin = () => {
-    console.log('Google login clicked');
+    console.log("Google login não implementado.");
   };
 
   return (
@@ -204,8 +236,10 @@ export default function LoginPage() {
               <img src="/logo.png" alt="MeuServiço" />
             </Logo>
 
+            {error && <ErrorMessage>{error}</ErrorMessage>}
+
             <GoogleButton onClick={handleGoogleLogin} type="button">
-              <img src="/googleicon.png" alt="Google" style={{ width: '20px' }} />
+              <img src="/googleicon.png" alt="Google" style={{ width: "20px" }} />
               Login com o Google
             </GoogleButton>
 
@@ -218,6 +252,7 @@ export default function LoginPage() {
               <Input
                 type="email"
                 name="email"
+                placeholder="Digite seu email"
                 value={formData.email}
                 onChange={handleChange}
                 required
@@ -228,8 +263,9 @@ export default function LoginPage() {
               <Label>Senha</Label>
               <Input
                 type="password"
-                name="password"
-                value={formData.password}
+                name="senha"
+                placeholder="Digite sua senha"
+                value={formData.senha}
                 onChange={handleChange}
                 required
               />
@@ -238,8 +274,8 @@ export default function LoginPage() {
               <Link href="/recuperar-senha">Esqueceu sua senha?</Link>
             </ForgotPassword>
 
-            <LoginButton type="submit">
-              Login
+            <LoginButton type="submit" disabled={loading}>
+              {loading ? "Entrando..." : "Login"}
             </LoginButton>
 
             <RegisterLink>
@@ -248,7 +284,7 @@ export default function LoginPage() {
           </LoginForm>
         </FormContainer>
         <ImageContainer>
-          <img src="/imagelogin.png" alt="Ilustração" style={{ objectPosition: 'center' }} />
+          <img src="/imagelogin.png" alt="Ilustração" style={{ objectPosition: "center" }} />
         </ImageContainer>
       </LoginCard>
     </Container>

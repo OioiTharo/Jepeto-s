@@ -1,3 +1,4 @@
+//jepeto\components\checkbox.js
 import styled from 'styled-components';
 
 const CheckboxContainer = styled.div`
@@ -19,7 +20,7 @@ const StyledCheckbox = styled.div`
   justify-content: center;
   width: 15px;
   height: 15px;
-  background: ${props => props.checked ? '#1E88E5' : '#f0f0f0'};
+  background: ${props => props.$checked ? '#1E88E5' : '#f0f0f0'};
   border-radius: 4px;
   transition: all 0.2s;
   cursor: pointer;
@@ -29,7 +30,7 @@ const StyledCheckbox = styled.div`
   }
 
   &:hover {
-    background: ${props => props.checked ? '#1976D2' : '#e0e0e0'};
+    background: ${props => props.$checked ? '#1976D2' : '#e0e0e0'};
   }
 `;
 
@@ -37,7 +38,7 @@ const CheckIcon = styled.svg`
   fill: none;
   stroke: white;
   stroke-width: 3px;
-  visibility: ${props => props.checked ? 'visible' : 'hidden'};
+  visibility: ${props => props.$checked ? 'visible' : 'hidden'};
 `;
 
 const CheckboxLabel = styled.label`
@@ -51,22 +52,22 @@ const CheckboxLabel = styled.label`
 `;
 
 const CustomCheckbox = ({ checked, onChange, label }) => (
-    <CheckboxLabel>
-        <CheckboxContainer>
-            <HiddenCheckbox checked={checked} onChange={onChange} />
-            <StyledCheckbox checked={checked}>
-                <CheckIcon
-                    checked={checked}
-                    viewBox="0 0 24 24"
-                    width="12"
-                    height="12"
-                >
-                    <polyline points="20 6 9 17 4 12" />
-                </CheckIcon>
-            </StyledCheckbox>
-        </CheckboxContainer>
-        {label}
-    </CheckboxLabel>
+  <CheckboxLabel>
+    <CheckboxContainer>
+      <HiddenCheckbox checked={checked} onChange={onChange} />
+      <StyledCheckbox $checked={checked}>
+        <CheckIcon
+          $checked={checked}
+          viewBox="0 0 24 24"
+          width="12"
+          height="12"
+        >
+          <polyline points="20 6 9 17 4 12" />
+        </CheckIcon>
+      </StyledCheckbox>
+    </CheckboxContainer>
+    {label}
+  </CheckboxLabel>
 );
 
 export default CustomCheckbox;

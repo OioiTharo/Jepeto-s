@@ -1,8 +1,9 @@
+//jepeto\src\app\qualificacao\page.js
 "use client";
 import styled from 'styled-components';
 import { useState } from 'react';
 import { useRouter } from 'next/navigation';
-import CustomCheckbox from '../../../components/checkbox';
+import CustomCheckbox from '../components/checkbox';
 
 const Container = styled.div`
     font-family: 'Roboto', sans-serif;

@@ -1,8 +1,12 @@
+//jepeto\src\app\perfil\profissional\page.js
 "use client";
 import styled from 'styled-components';
-import { useState } from 'react';
+import { useState, useEffect } from 'react';
+
 import { useRouter } from 'next/navigation';
-import ServiceProviderProfile from '../../../../components/perfil';
+import ServiceProviderProfile from '../../components/perfil';
+import { useAuth } from '../../context/AuthContext';
+
 
 const Container = styled.div`
     font-family: 'Roboto', sans-serif;
@@ -324,291 +328,165 @@ const urgencias = [
     'Urgente - Precisa ser feito hoje'
 ];
 
-export default function SolicitarServicoPage() {
+export default function ProfessionalProfilePage() {
     const router = useRouter();
+    const { authData } = useAuth();
     const [selectedService, setSelectedService] = useState(null);
-    
+  
     const [formData, setFormData] = useState({
-        categoria: '',
-        titulo: '',
-        descricao: '',
-        cep: '',
-        logradouro: '',
-        numero: '',
-        complemento: '',
-        cidade: '',
-        estado: '',
-        bairro: '',
-        urgencia: '',
-        pagamentos: [],
-        diasDisponiveis: [],
-        horarioInicio: '08:00',
-        horarioFim: '18:00',
-        orcamentoMaximo: ''
+      categoria: '',
+      titulo: '',
+      descricao: '',
+      cep: '',
+      logradouro: '',
+      numero: '',
+      complemento: '',
+      cidade: '',
+      estado: '',
+      bairro: '',
+      urgencia: '',
+      pagamentos: [],
+      diasDisponiveis: [],
+      horarioInicio: '08:00',
+      horarioFim: '18:00',
+      orcamentoMaximo: ''
     });
-
+  
     const [errors, setErrors] = useState({});
     const [loading, setLoading] = useState(false);
     const [cepError, setCepError] = useState('');
-
-    // Serviços mockados
+  
     const mockSolicitedServices = [
-        {
-            id: 1,
-            titulo: "Instalação Elétrica Residencial",
-            categoria: "Eletricista",
-            descricao: "Preciso de um eletricista para instalação de tomadas e revisão geral da rede elétrica.",
-            urgencia: "Média - Precisa ser feito esta semana",
-            status: "Em andamento",
-            data: "2024-02-14",
-            // Dados do formulário
-            pagamentos: ["PIX", "Dinheiro"],
-            diasDisponiveis: ["Segunda", "Terça", "Quarta"],
-            horarioInicio: "08:00",
-            horarioFim: "18:00",
-            orcamentoMaximo: "500",
-            // Dados do endereço
-            endereco: {
-                cep: "12345-678",
-                logradouro: "Rua Exemplo",
-                numero: "123",
-                complemento: "Apto 45",
-                cidade: "São Paulo",
-                estado: "SP",
-                bairro: "Centro"
-            },
-            // Dados do solicitante
-            solicitante: {
-                nome: "Thais Rodrigues",
-                telefone: "(11) 98765-4321",
-                email: "thais@email.com"
-            },
-            // Prestadores interessados
-            prestadores: [
-                { nome: "João Silva", avaliacao: 4.8 },
-                { nome: "Maria Santos", avaliacao: 4.9 }
-            ]
-        }
+      {
+        id: 1,
+        titulo: "Instalação Elétrica Residencial",
+        categoria: "Eletricista",
+        descricao: "Preciso de um eletricista para instalação de tomadas e revisão geral da rede elétrica.",
+        urgencia: "Média - Precisa ser feito esta semana",
+        status: "Em andamento",
+        data: "2024-02-14",
+        pagamentos: ["PIX", "Dinheiro"],
+        diasDisponiveis: ["Segunda", "Terça", "Quarta"],
+        horarioInicio: "08:00",
+        horarioFim: "18:00",
+        orcamentoMaximo: "500",
+        endereco: {
+          cep: "12345-678",
+          logradouro: "Rua Exemplo",
+          numero: "123",
+          complemento: "Apto 45",
+          cidade: "São Paulo",
+          estado: "SP",
+          bairro: "Centro"
+        },
+        solicitante: {
+          nome: "Thais Rodrigues",
+          telefone: "(11) 98765-4321",
+          email: "thais@email.com"
+        },
+        prestadores: [
+          { nome: "João Silva", avaliacao: 4.8 },
+          { nome: "Maria Santos", avaliacao: 4.9 }
+        ]
+      }
     ];
-    // Funções auxiliares
-    const formatCEP = (value) => {
-        const numericValue = value.replace(/\D/g, '');
-        return numericValue.replace(/(\d{5})(\d{3})/, '$1-$2');
-    };
-
-    const fetchAddressByCEP = async (cep) => {
-        const cleanCEP = cep.replace(/\D/g, '');
-        if (cleanCEP.length !== 8) {
-            setCepError('CEP deve ter 8 dígitos');
-            return;
-        }
-
-        setLoading(true);
-        setCepError('');
-
-        try {
-            const response = await fetch(`https://viacep.com.br/ws/${cleanCEP}/json/`);
-            const data = await response.json();
-
-            if (data.erro) {
-                setCepError('CEP não encontrado');
-                return;
-            }
-
-            setFormData(prev => ({
-                ...prev,
-                logradouro: data.logradouro || '',
-                cidade: data.localidade || '',
-                estado: data.uf || '',
-                bairro: data.bairro || ''
-            }));
-        } catch (error) {
-            setCepError('Erro ao buscar CEP');
-        } finally {
-            setLoading(false);
-        }
-    };
-
+  
+    useEffect(() => {
+      // Redirecionar se o usuário não for profissional
+      if (!authData?.token || authData.userType !== 'profissional') {
+        router.push('/login');
+      }
+    }, [authData, router]);
+  
     const handleChange = (e) => {
-        const { name, value } = e.target;
-
-        if (name === 'cep') {
-            const formattedCEP = formatCEP(value);
-            setFormData(prev => ({
-                ...prev,
-                [name]: formattedCEP
-            }));
-
-            if (value.replace(/\D/g, '').length === 8) {
-                fetchAddressByCEP(value);
-            }
-        } else {
-            setFormData(prev => ({
-                ...prev,
-                [name]: value
-            }));
-        }
-
-        setErrors(prev => ({
-            ...prev,
-            [name]: ''
-        }));
-    };
-
-    const togglePagamento = (pagamento) => {
+      const { name, value } = e.target;
+  
+      if (name === 'cep') {
+        const formattedCEP = value.replace(/\D/g, '').replace(/(\d{5})(\d{3})/, '$1-$2');
         setFormData(prev => ({
-            ...prev,
-            pagamentos: prev.pagamentos.includes(pagamento)
-                ? prev.pagamentos.filter(p => p !== pagamento)
-                : [...prev.pagamentos, pagamento]
+          ...prev,
+          [name]: formattedCEP
         }));
-    };
-
-    const toggleDia = (dia) => {
+      } else {
         setFormData(prev => ({
-            ...prev,
-            diasDisponiveis: prev.diasDisponiveis.includes(dia)
-                ? prev.diasDisponiveis.filter(d => d !== dia)
-                : [...prev.diasDisponiveis, dia]
+          ...prev,
+          [name]: value
         }));
+      }
+  
+      setErrors(prev => ({
+        ...prev,
+        [name]: ''
+      }));
     };
-
-    const validateForm = () => {
-        const newErrors = {};
-
-        if (!formData.categoria) newErrors.categoria = 'Selecione uma categoria';
-        if (!formData.titulo) newErrors.titulo = 'Digite um título para o serviço';
-        if (!formData.descricao) newErrors.descricao = 'Descreva o serviço necessário';
-        if (!formData.urgencia) newErrors.urgencia = 'Selecione o nível de urgência';
-        if (formData.pagamentos.length === 0) newErrors.pagamentos = 'Selecione pelo menos uma forma de pagamento';
-        if (formData.diasDisponiveis.length === 0) newErrors.diasDisponiveis = 'Selecione pelo menos um dia disponível';
-        if (!formData.cep) newErrors.cep = 'Digite o CEP';
-        if (!formData.numero) newErrors.numero = 'Digite o número do endereço';
-
-        setErrors(newErrors);
-        return Object.keys(newErrors).length === 0;
-    };
-
-    const handleSubmit = async (e) => {
-        e.preventDefault();
-        if (!validateForm()) return;
-
-        setLoading(true);
-        try {
-            // Simular chamada API
-            await new Promise(resolve => setTimeout(resolve, 1500));
-            router.push('/dashboard');
-        } catch (error) {
-            setErrors(prev => ({
-                ...prev,
-                submit: 'Erro ao enviar a solicitação. Tente novamente.'
-            }));
-        } finally {
-            setLoading(false);
-        }
-    };
-
+  
     return (
-        <Container>
-            <LeftColumn>
-                <ServiceProviderProfile/>
-            </LeftColumn>
-
-            <RightColumn>
-                <ServiceListCard>
-                    <h2 style={{ marginBottom: '1.5rem' }}>Serviços Solicitados</h2>
-                    {mockSolicitedServices.map((service) => (
-                        <ServiceItem 
-                            key={service.id}
-                            onClick={() => setSelectedService(service)}
-                        >
-                            <ServiceTitle>{service.titulo}</ServiceTitle>
-                            <ServiceDetails>
-                                <div>Categoria: {service.categoria}</div>
-                                <div>Urgência: {service.urgencia}</div>
-                                <div>Status: {service.status}</div>
-                                <div>Data: {new Date(service.data).toLocaleDateString()}</div>
-                            </ServiceDetails>
-                            <div style={{ 
-                                display: 'flex', 
-                                justifyContent: 'space-between',
-                                alignItems: 'center',
-                                color: '#666',
-                                fontSize: '0.8rem'
-                            }}>
-                                <span>{service.prestadores.length} prestadores interessados</span>
-                                <span className="material-icons" style={{ fontSize: '1.2rem' }}>
-                                    arrow_forward
-                                </span>
-                            </div>
-                        </ServiceItem>
-                    ))}
-                </ServiceListCard>
-            </RightColumn>
-
-            {selectedService && (
-    <Modal onClick={() => setSelectedService(null)}>
-        <ModalContent onClick={e => e.stopPropagation()}>
-        <CloseButton onClick={() => setSelectedProvider(null)}>
-                            <span className="material-icons">close</span>
-                        </CloseButton>
-            
-            <ModalTitle>{selectedService.titulo}</ModalTitle>
-            
-            <ModalSection>
+      <Container>
+        <LeftColumn>
+          <ServiceProviderProfile />
+        </LeftColumn>
+  
+        <RightColumn>
+          <ServiceListCard>
+            <h2 style={{ marginBottom: '1.5rem' }}>Serviços Solicitados</h2>
+            {mockSolicitedServices.map((service) => (
+              <ServiceItem 
+                key={service.id}
+                onClick={() => setSelectedService(service)}
+              >
+                <ServiceTitle>{service.titulo}</ServiceTitle>
+                <ServiceDetails>
+                  <div>Categoria: {service.categoria}</div>
+                  <div>Urgência: {service.urgencia}</div>
+                  <div>Status: {service.status}</div>
+                  <div>Data: {new Date(service.data).toLocaleDateString()}</div>
+                </ServiceDetails>
+                <div style={{ 
+                  display: 'flex', 
+                  justifyContent: 'space-between',
+                  alignItems: 'center',
+                  color: '#666',
+                  fontSize: '0.8rem'
+                }}>
+                  <span>{service.prestadores.length} prestadores interessados</span>
+                  <span className="material-icons" style={{ fontSize: '1.2rem' }}>
+                    arrow_forward
+                  </span>
+                </div>
+              </ServiceItem>
+            ))}
+          </ServiceListCard>
+        </RightColumn>
+  
+        {selectedService && (
+          <Modal onClick={() => setSelectedService(null)}>
+            <ModalContent onClick={(e) => e.stopPropagation()}>
+              <CloseButton onClick={() => setSelectedService(null)}>
+                <span className="material-icons">close</span>
+              </CloseButton>
+  
+              <ModalTitle>{selectedService.titulo}</ModalTitle>
+  
+              <ModalSection>
                 <Label>Solicitante</Label>
                 <Value>Nome: {selectedService.solicitante.nome}</Value>
                 <Value>Telefone: {selectedService.solicitante.telefone}</Value>
                 <Value>Email: {selectedService.solicitante.email}</Value>
-            </ModalSection>
-
-            <ModalSection>
+              </ModalSection>
+  
+              <ModalSection>
                 <Label>Informações do Serviço</Label>
                 <Value>Categoria: {selectedService.categoria}</Value>
                 <Value>Descrição: {selectedService.descricao}</Value>
                 <Value>Urgência: {selectedService.urgencia}</Value>
                 <Value>Status: {selectedService.status}</Value>
                 <Value>Data: {new Date(selectedService.data).toLocaleDateString()}</Value>
-            </ModalSection>
-
-            <ModalSection>
-                <Label>Disponibilidade</Label>
-                <Value>Dias: {selectedService.diasDisponiveis.join(", ")}</Value>
-                <Value>Horário: {selectedService.horarioInicio} às {selectedService.horarioFim}</Value>
-            </ModalSection>
-
-            <ModalSection>
-                <Label>Pagamento</Label>
-                <Value>Formas de pagamento aceitas: {selectedService.pagamentos.join(", ")}</Value>
-                <Value>Orçamento máximo: R$ {selectedService.orcamentoMaximo}</Value>
-            </ModalSection>
-
-            <ModalSection>
-                <Label>Endereço</Label>
-                <Value>{selectedService.endereco.logradouro}, {selectedService.endereco.numero}</Value>
-                {selectedService.endereco.complemento && (
-                    <Value>Complemento: {selectedService.endereco.complemento}</Value>
-                )}
-                <Value>Bairro: {selectedService.endereco.bairro}</Value>
-                <Value>{selectedService.endereco.cidade} - {selectedService.endereco.estado}</Value>
-                <Value>CEP: {selectedService.endereco.cep}</Value>
-            </ModalSection>
-
-            {selectedService.prestadores.length > 0 && (
-                <ModalSection>
-                    <Label>Prestadores Interessados</Label>
-                    {selectedService.prestadores.map((prestador, index) => (
-                        <Value key={index}>
-                            {prestador.nome} - {prestador.avaliacao} ⭐
-                        </Value>
-                    ))}
-                </ModalSection>
-            )}
-
-            <Bazul href='\'>Aceitar serviço</Bazul>
-        </ModalContent>
-    </Modal>
-)}
-        </Container>
+              </ModalSection>
+  
+              <Bazul href="/">Aceitar serviço</Bazul>
+            </ModalContent>
+          </Modal>
+        )}
+      </Container>
     );
-}
+  }

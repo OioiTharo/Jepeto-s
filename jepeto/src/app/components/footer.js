@@ -1,72 +1,74 @@
-import styled from 'styled-components'
-import Link from 'next/link'
+//jepeto\components\footer.js
+import styled from 'styled-components';
+import Link from 'next/link';
 
 const FooterContainer = styled.footer`
-    font-family: 'Roboto', sans-serif;
-    background-color: #F8F9FA;
-    padding: 2rem 0;
-    width: 100%;
-`
+  font-family: 'Roboto', sans-serif;
+  background-color: #F8F9FA;
+  padding: 2rem 0;
+  width: 100%;
+`;
 
 const FooterContent = styled.div`
-    max-width: 1200px;
-    margin: 0 auto;
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-    padding: 0 2rem;
-    
-    @media (max-width: 768px) {
-        flex-direction: column;
-        gap: 2rem;
-        text-align: center;
-    }
-`
+  max-width: 1200px;
+  margin: 0 auto;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 0 2rem;
+  
+  @media (max-width: 768px) {
+    flex-direction: column;
+    gap: 2rem;
+    text-align: center;
+  }
+`;
 
 const Navigation = styled.nav`
-    display: flex;
-    gap: 2rem;
-    
-    @media (max-width: 768px) {
-        flex-direction: column;
-        gap: 1rem;
-    }
-`
+  display: flex;
+  gap: 2rem;
+  
+  @media (max-width: 768px) {
+    flex-direction: column;
+    gap: 1rem;
+  }
+`;
 
 const NavLink = styled.a`
-    color: #333;
-    text-decoration: none;
-    font-size: 0.875rem;
-    transition: color 0.2s;
-    
-    &:hover {
-        opacity: 0.5;
-    }
-`
+  color: #333;
+  text-decoration: none;  /* Remove o sublinhado */
+  font-size: 0.875rem;
+  transition: color 0.2s;
+  
+  &:hover {
+    opacity: 0.5;
+  }
+`;
 
 const SocialLinks = styled.div`
-    display: flex;
-    gap: 1.5rem;
-    align-items: center;
-`
+  display: flex;
+  gap: 1.5rem;
+  align-items: center;
+`;
 
 const SocialLink = styled.a`
-    color: #333;
-    transition: color 0.2s;
-    
-    &:hover {
-        opacity: 0.5;
-    }
-`
+  color: #333;
+  transition: color 0.2s;
+  text-decoration: none;  /* Remove o sublinhado */
+  
+  &:hover {
+    opacity: 0.5;
+  }
+`;
 
 const Copyright = styled.div`
-    text-align: center;
-    color: #666;
-    font-size: 0.875rem;
-    padding-top: 2rem;
-    border-top: 1px solid #eaeaea;
-    margin-top: 2rem;
-`
+  text-align: center;
+  color: #666;
+  font-size: 0.875rem;
+  padding-top: 2rem;
+  border-top: 1px solid #eaeaea;
+  margin-top: 2rem;
+`;
 
 const Footer = () => {
   return (
@@ -136,7 +138,7 @@ const Footer = () => {
         Copyright © {new Date().getFullYear()} MeuServiço | Todos os direitos reservados
       </Copyright>
     </FooterContainer>
-  )
-}
+  );
+};
 
-export default Footer
+export default Footer;
